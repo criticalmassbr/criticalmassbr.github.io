@@ -1,0 +1,267 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>
+  Dialog | Social internal communication
+</title>
+<link rel="canonical" href="https://dialog.cm">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:200,400,700">
+<style>
+  * {
+    box-sizing: border-box;
+  }
+  html, body {
+    width: 100vw;
+    overflow-x: hidden;
+  }
+  body, h1, h2 {
+    margin: 0;
+  }
+  h1, h2 {
+    font-weight: 200;
+  }
+  body {
+    font-family: Montserrat, sans-serif;
+    background-color: #444;
+    color: white;
+  }
+  button, input, textarea {
+    outline: none;
+  }
+  a:hover {
+    text-decoration: none;
+  }
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    transition: background-color 0s ease-in-out 86400s;
+  }
+  .primary-color-bg {
+    background-color: #3b9861;
+    color: #feffff;
+  }
+  .content-wrapper {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+  }
+  @media (max-width: 767px) {
+    .content-wrapper {
+      max-width: 375px;
+    }
+  }
+  .header-menu {
+    min-height: 80px;
+    margin: 48px 30px;
+  }
+  @media (max-width: 767px) {
+    .header-menu {
+      min-height: 44px;
+      margin: 15px 0;
+    }
+  }
+  .header-dialog-logo {
+    width: 138px;
+    height: 78px;
+    background-image: url('logo-dialog.png');
+    background-size: 100% 100%;
+  }
+  @media (max-width: 767px) {
+    .header-dialog-logo {
+      width: 92px;
+      height: 47px;
+    }
+  }
+  .header-wanna-try-btn-col {
+    /*text-align: right;*/
+  }
+  .white-bubble-btn,
+  .white-bubble-btn:hover {
+    color: #3b9861;
+  }
+  .white-bubble-btn:hover {
+    transform: scale(1.1);
+  }
+  .white-bubble-btn {
+    display: inline-block;
+    transition: all ease 0.1s;
+    margin-top: 14px;
+    border-radius: 100px;
+    line-height: 50px;
+    padding: 0 30px;
+    font-size: 17px;
+    font-weight: 700;
+    background-color: white;
+  }
+  @media (max-width: 767px) {
+    .white-bubble-btn {
+      line-height: 32px;
+      margin-top: 9px;
+      padding: 0 15px;
+      font-size: 12px;
+    }
+  }
+  .header-description {
+    position: relative;
+    padding-top: 32px;
+  }
+  @media (max-width: 767px) {
+    .header-description {
+      padding-top: 12px;
+      padding-right: 0;
+    }
+  }
+  .header-description-heading {
+    font-size: 48px;
+    margin-bottom: 22px;
+  }
+  @media (max-width: 767px) {
+    .header-description-heading {
+      font-size: 24px;
+      margin-bottom: 11px;
+    }
+  }
+  .header-description-paragraph {
+    font-size: 18px;
+  }
+  @media (max-width: 767px) {
+    .header-description-paragraph {
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 24px;
+    }
+  }
+  @media (max-width: 374px) {
+    .header-description-paragraph {
+      font-size: 12px;
+    }
+  }
+  .grey-bg {
+    padding-top: 45px;
+    background-color: #444;
+    text-align: center;
+  }
+  @media (max-width: 767px) {
+    .grey-bg {
+      padding-bottom: 10px;
+      font-size: 11px;
+    }
+  }
+  .footer-cm-link {
+    display: inline-block;
+    width: 200px;
+    height: 42px;
+    margin-bottom: 10px;
+    background-image: url('logo-cm.jpg');
+    background-size: 100% 100%;
+  }
+  .footer-office-address {
+    margin-bottom: 40px;
+  }
+  @media (max-width: 767px) {
+    .footer-office-address {
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+  }
+  .grey-bubble-btn,
+  .grey-bubble-btn:hover,
+  .grey-bubble-btn:focus {
+    color: white;
+    text-decoration: none;
+  }
+  .grey-bubble-btn:hover {
+    background-color: #333;
+  }
+  .grey-bubble-btn {
+    display: inline-block;
+    line-height: 40px;
+    padding: 0 30px;
+    border-radius: 100px;
+    font-weight: 500;
+    background-color: #3d3d3d;
+  }
+  .grey-bubble-btn + .grey-bubble-btn {
+    margin-left: 10px;
+  }
+  @media (max-width: 767px) {
+    .grey-bubble-btn {
+      line-height: 34px;
+      padding: 0 15px;
+    }
+    .grey-bubble-btn + .grey-bubble-btn {
+      margin-left: 5px;
+    }
+  }
+  .footer-copyright-notice {
+    margin-top: 36px;
+    font-family: 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 12px;
+    color: #b6b6b6;
+  }
+  @media (max-width: 767px) {
+    .footer-copyright-notice {
+      margin-top: 24px;
+    }
+  }
+</style>
+<div class="primary-color-bg">
+  <div class="content-wrapper container-fluid">
+    <div class="header-menu">
+      <div class="row">
+        <div class="col-md-6 col-xs-6">
+          <h1 class="header-dialog-logo">
+            <span class="sr-only">
+              Dialog
+            </span>
+          </h1>
+        </div>
+      </div>
+    </div>
+    <div class="header-description">
+      <div class="row">
+        <div class="col-md-7 col-md-offset-1 col-sm-11 col-xs-12">
+          <h2 class="header-description-heading">
+            End to end communication
+            <br>in your hands
+          </h2>
+          <p class="header-description-paragraph">
+            Speak directly to all your employees and involve them through conversations, gamings and quizzes.
+            Allow your managers with internal rates of campaign absorption, identification of influencers, and sentiment analysis.
+          </p>
+          <div class="header-wanna-try-btn-col">
+            
+            <a href="itms-services://?action=download-manifest&url=https:/%WWW.YOURWEBSITE.COM%/%FILENAME_AND_PATH_TO_THE_APP_PLIST" class="white-bubble-btn">
+               Install Dialog
+            </a>
+       
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="grey-bg">
+  <div class="content-wrapper">
+    <a class="footer-cm-link" href="http://www.criticalmass.com">
+      <span class="sr-only">
+        Critical Mass
+      </span>
+    </a>
+    <p class="footer-office-address">
+      Av. Presidente Juscelino Kubitschek, 1726 &mdash; 6º andar
+      <br>Itaim Bibi &mdash; São Paulo / SP
+    </p>
+    <a class="grey-bubble-btn" href="tel:+551148717144">
+      +55 (11) 4871-7144
+    </a>
+    <a class="grey-bubble-btn" href="mailto:contato@dialog.cm">
+      contato@dialog.cm
+    </a>
+    <p class="footer-copyright-notice">
+      Copyright &copy; 2017 Critical Mass. All rights reserved.
+    </p>
+  </div>
+</div>
