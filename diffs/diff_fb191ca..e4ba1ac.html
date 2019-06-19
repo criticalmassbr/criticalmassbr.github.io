@@ -1,0 +1,543 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- This file was created with the aha Ansi HTML Adapter. https://github.com/theZiz/aha -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xml+xhtml; charset=UTF-8"/>
+<title>stdin</title>
+</head>
+<body style="color:white; background-color:black">
+<pre>
+<span style="font-weight:bold;">diff --git a/criticalmass/gcp/k8s_templates/k8s-auth-vault/kubernetes-vault.yaml b/criticalmass/gcp/k8s_templates/k8s-auth-vault/kubernetes-vault.yaml</span>
+<span style="font-weight:bold;">index 5f43068..c9ec519 100644</span>
+<span style="font-weight:bold;">--- a/criticalmass/gcp/k8s_templates/k8s-auth-vault/kubernetes-vault.yaml</span>
+<span style="font-weight:bold;">+++ b/criticalmass/gcp/k8s_templates/k8s-auth-vault/kubernetes-vault.yaml</span>
+<span style="color:aqua;">@@ -51,7 +51,7 @@</span> data:
+   kubernetes-vault.yml: |-
+     vault:
+       addr: https://vault.example.net:8200/
+<span style="color:red;">-      token: 4CLtCn8ON8rag9rTvl1UN9ZQ</span>
+<span style="color:lime;">+</span><span style="color:lime;">      token: 99b24ad0-c1b5-c57b-3f2f-db7faab87e9a</span>
+       tls:
+         caCert: /kubernetes-vault/ca.pem
+ 
+<span style="font-weight:bold;">diff --git a/criticalmass/gcp/prod/cloud_sql.tf b/criticalmass/gcp/prod/cloud_sql.tf</span>
+<span style="font-weight:bold;">index d3c6fc7..1334f92 100644</span>
+<span style="font-weight:bold;">--- a/criticalmass/gcp/prod/cloud_sql.tf</span>
+<span style="font-weight:bold;">+++ b/criticalmass/gcp/prod/cloud_sql.tf</span>
+<span style="color:aqua;">@@ -1,175 +1,190 @@</span>
+ locals {
+<span style="color:red;">-</span>
+   sql_users_dial-rec-prod = [
+     {
+<span style="color:red;">-        &quot;name&quot;= &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;shared-prod-mysql-57_databases_dial-rec-prod_username&quot;]}&quot;,</span>
+<span style="color:red;">-        &quot;host&quot;= &quot;%&quot;,</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;name&quot;     = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;shared-prod-mysql-57_databases_dial-rec-prod_username&quot;]}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;host&quot;     = &quot;%&quot;</span>
+       &quot;password&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;shared-prod-mysql-57_databases_dial-rec-prod_password&quot;]}&quot;
+<span style="color:red;">-      }</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+   ]
+<span style="color:lime;">+</span>
+   sql_databases_dial-rec-prod = [
+     {
+       &quot;name&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;shared-prod-mysql-57_databases_dial-rec-prod_name&quot;]}&quot;
+<span style="color:red;">-      }</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+   ]
+ 
+   sql_users_dial-sl-prod = [
+     {
+<span style="color:red;">-        &quot;name&quot;= &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;shared-prod-mysql-57_databases_dial-sl-prod_username&quot;]}&quot;,</span>
+<span style="color:red;">-        &quot;host&quot;= &quot;%&quot;,</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;name&quot;     = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;shared-prod-mysql-57_databases_dial-sl-prod_username&quot;]}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;host&quot;     = &quot;%&quot;</span>
+       &quot;password&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;shared-prod-mysql-57_databases_dial-sl-prod_password&quot;]}&quot;
+<span style="color:red;">-      }</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+   ]
+<span style="color:lime;">+</span>
+   sql_databases_dial-sl-prod = [
+     {
+       &quot;name&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;shared-prod-mysql-57_databases_dial-sl-prod_name&quot;]}&quot;
+<span style="color:red;">-      }</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+   ]
+<span style="color:lime;">+</span>
+   sql_users_emeadTest = [
+     {
+<span style="color:red;">-        &quot;name&quot;= &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;multi-k8s-qa_databases_emeadTest_username&quot;]}&quot;,</span>
+<span style="color:red;">-        &quot;host&quot;= &quot;%&quot;,</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;name&quot;     = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;multi-k8s-qa_databases_emeadTest_username&quot;]}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;host&quot;     = &quot;%&quot;</span>
+       &quot;password&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;multi-k8s-qa_databases_emeadTest_password&quot;]}&quot;
+<span style="color:red;">-      }</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+   ]
+<span style="color:lime;">+</span>
+   sql_databases_emeadTest = [
+     {
+       &quot;name&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;multi-k8s-qa_databases_emeadTest_name&quot;]}&quot;
+<span style="color:red;">-      }</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+   ]
+ 
+   sql_users_dial-light-prod = [
+     {
+       &quot;name&quot;     = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial-light-prod_databases_dial_light_prod_username&quot;]}&quot;
+<span style="color:red;">-        &quot;host&quot;= &quot;%&quot;,</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;host&quot;     = &quot;%&quot;</span>
+       &quot;password&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial-light-prod_databases_dial_light_prod_password&quot;]}&quot;
+<span style="color:red;">-      }</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+   ]
+<span style="color:lime;">+</span>
+   sql_databases_dial-light-prod = [
+     {
+       &quot;name&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial-light-prod_databases_dial_light_prod_name&quot;]}&quot;
+<span style="color:red;">-      }</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+   ]
+ 
+   sql_users_dial-klabin-prod = [
+     {
+<span style="color:red;">-        &quot;name&quot;= &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial-klabin-prod_databases_dial_klabin_prod_username&quot;]}&quot;,</span>
+<span style="color:red;">-        &quot;host&quot;= &quot;%&quot;,</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;name&quot;     = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial-klabin-prod_databases_dial_klabin_prod_username&quot;]}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;host&quot;     = &quot;%&quot;</span>
+       &quot;password&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial-klabin-prod_databases_dial_klabin_prod_password&quot;]}&quot;
+<span style="color:red;">-      }</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+   ]
+<span style="color:lime;">+</span>
+   sql_databases_dial-klabin-prod = [
+     {
+       &quot;name&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial-klabin-prod_databases_dial_klabin_prod_name&quot;]}&quot;
+<span style="color:red;">-      }</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+   ]
+ 
+   sql_users_dial-impar-prod = [
+     {
+<span style="color:red;">-        &quot;name&quot;= &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial-impar-prod_databases_dial_impar_prod_username&quot;]}&quot;,</span>
+<span style="color:red;">-        &quot;host&quot;= &quot;%&quot;,</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;name&quot;     = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial-impar-prod_databases_dial_impar_prod_username&quot;]}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;host&quot;     = &quot;%&quot;</span>
+       &quot;password&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial-impar-prod_databases_dial_impar_prod_password&quot;]}&quot;
+<span style="color:red;">-      }</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+   ]
+<span style="color:lime;">+</span>
+   sql_databases_dial-impar-prod = [
+     {
+       &quot;name&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial-impar-prod_databases_dial_impar_prod_name&quot;]}&quot;
+<span style="color:red;">-      }</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+   ]
+ 
+   sql_users_dial-brf-prod = [
+     {
+       &quot;name&quot;     = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial-brf-prod_databases_dial_brf_prod_username&quot;]}&quot;
+<span style="color:red;">-        &quot;host&quot;= &quot;%&quot;,</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;host&quot;     = &quot;%&quot;</span>
+       &quot;password&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial-brf-prod_databases_dial_brf_prod_password&quot;]}&quot;
+<span style="color:red;">-      }</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+   ]
+<span style="color:lime;">+</span>
+   sql_databases_dial-brf-prod = [
+     {
+       &quot;name&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial-brf-prod_databases_dial_brf_prod_name&quot;]}&quot;
+<span style="color:red;">-      }</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+   ]
+ 
+   sql_users_dial-ccm-demo = [
+     {
+<span style="color:red;">-        &quot;name&quot;= &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;eusou-prod_databases_dial-ccm-demo_username&quot;]}&quot;,</span>
+<span style="color:red;">-        &quot;host&quot;= &quot;%&quot;,</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;name&quot;     = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;eusou-prod_databases_dial-ccm-demo_username&quot;]}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;host&quot;     = &quot;%&quot;</span>
+       &quot;password&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;eusou-prod_databases_dial-ccm-demo_password&quot;]}&quot;
+<span style="color:red;">-      }</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+   ]
+<span style="color:lime;">+</span>
+   sql_databases_dial-ccm-demo = [
+     {
+       &quot;name&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;eusou-prod_databases_dial-ccm-demo_name&quot;]}&quot;
+<span style="color:red;">-      }</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+   ]
+ 
+   sql_users_dial_zs_prod = [
+     {
+<span style="color:red;">-        &quot;name&quot;= &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;eusou-prod_databases_dial_zs_prod_username&quot;]}&quot;,</span>
+<span style="color:red;">-        &quot;host&quot;= &quot;%&quot;,</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;name&quot;     = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;eusou-prod_databases_dial_zs_prod_username&quot;]}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;host&quot;     = &quot;%&quot;</span>
+       &quot;password&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;eusou-prod_databases_dial_zs_prod_password&quot;]}&quot;
+<span style="color:red;">-      }</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+   ]
+<span style="color:lime;">+</span>
+   sql_databases_dial_zs_prod = [
+     {
+       &quot;name&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;eusou-prod_databases_dial_zs_prod_name&quot;]}&quot;
+<span style="color:red;">-      }</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+   ]
+ 
+   sql_users_eusou = [
+     {
+<span style="color:red;">-        &quot;name&quot;= &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial_pep_db_username_prod&quot;]}&quot;,</span>
+<span style="color:red;">-        &quot;host&quot;= &quot;%&quot;,</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;name&quot;     = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial_pep_db_username_prod&quot;]}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;host&quot;     = &quot;%&quot;</span>
+       &quot;password&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial_pep_db_password_prod&quot;]}&quot;
+<span style="color:red;">-      }</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+   ]
+<span style="color:lime;">+</span>
+   sql_databases_eusou = [
+     {
+       &quot;name&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial_pep_db_username_prod&quot;]}&quot;
+<span style="color:red;">-      }</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+   ]
+ 
+<span style="color:red;">-</span>
+   sql_databases_carrefour-prod = [
+     {
+       &quot;name&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial_carrefour_prod_name&quot;]}&quot;
+<span style="color:red;">-      }</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+   ]
+ 
+   sql_users_carrefour-prod = [
+     {
+<span style="color:red;">-        &quot;name&quot;= &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial_carrefour_prod_username&quot;]}&quot;,</span>
+<span style="color:red;">-        &quot;host&quot;= &quot;%&quot;,</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;name&quot;     = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial_carrefour_prod_username&quot;]}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;host&quot;     = &quot;%&quot;</span>
+       &quot;password&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial_carrefour_prod_password&quot;]}&quot;
+<span style="color:red;">-      }</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+   ]
+ 
+   sql_users_shared-prod-mysql-57 = [
+     {
+<span style="color:red;">-	        &quot;name&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;shared-prod-mysql-57_databases_dial-gip-prod_username&quot;]}&quot;,</span>
+<span style="color:red;">-	        &quot;host&quot; = &quot;%&quot;,</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;name&quot;     = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;shared-prod-mysql-57_databases_dial-gip-prod_username&quot;]}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;host&quot;     = &quot;%&quot;</span>
+       &quot;password&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;shared-prod-mysql-57_databases_dial-gip-prod_password&quot;]}&quot;
+<span style="color:red;">-	    }, {</span>
+<span style="color:red;">-	        &quot;name&quot;= &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;shared-prod-mysql-57_databases_dial-hsp-prod_username&quot;]}&quot;,</span>
+<span style="color:red;">-	        &quot;host&quot;= &quot;%&quot;,</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+<span style="color:lime;">+</span><span style="color:lime;">    {</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;name&quot;     = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;shared-prod-mysql-57_databases_dial-hsp-prod_username&quot;]}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;host&quot;     = &quot;%&quot;</span>
+       &quot;password&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;shared-prod-mysql-57_databases_dial-hsp-prod_password&quot;]}&quot;
+<span style="color:red;">-	    }, {</span>
+<span style="color:red;">-	        &quot;name&quot;= &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;shared-prod-mysql-57_databases_dial-multi-prod_username&quot;]}&quot;,</span>
+<span style="color:red;">-	        &quot;host&quot;= &quot;%&quot;,</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+<span style="color:lime;">+</span><span style="color:lime;">    {</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;name&quot;     = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;shared-prod-mysql-57_databases_dial-multi-prod_username&quot;]}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;host&quot;     = &quot;%&quot;</span>
+       &quot;password&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;shared-prod-mysql-57_databases_dial-multi-prod_password&quot;]}&quot;
+<span style="color:red;">-	    }, {</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+<span style="color:lime;">+</span><span style="color:lime;">    {</span>
+       &quot;name&quot;     = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;eusou-prod_databases_dial_pn_prod_username&quot;]}&quot;
+<span style="color:red;">-	        &quot;host&quot;= &quot;%&quot;,</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;host&quot;     = &quot;%&quot;</span>
+       &quot;password&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;eusou-prod_databases_dial_pn_prod_password&quot;]}&quot;
+<span style="color:red;">-	    }, {</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+<span style="color:lime;">+</span><span style="color:lime;">    {</span>
+       &quot;name&quot;     = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial-roche-prod_databases_dial_roche_prod_username&quot;]}&quot;
+<span style="color:red;">-                &quot;host&quot;= &quot;%&quot;,</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;host&quot;     = &quot;%&quot;</span>
+       &quot;password&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial-roche-prod_databases_dial_roche_prod_password&quot;]}&quot;
+<span style="color:red;">-            }, {</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+<span style="color:lime;">+</span><span style="color:lime;">    {</span>
+       &quot;name&quot;     = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial_unimed_prod_name&quot;]}&quot;
+<span style="color:red;">-                &quot;host&quot;= &quot;%&quot;,</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;host&quot;     = &quot;%&quot;</span>
+       &quot;password&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial_unimed_prod_password&quot;]}&quot;
+<span style="color:red;">-           }</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+<span style="color:lime;">+</span><span style="color:lime;">  ]</span>
+ 
+   #, {
+   #   &quot;name&quot;= &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;eusou-prod_databases_dial_kmsg_cba_prod_username&quot;]}&quot;
+<span style="color:aqua;">@@ -180,19 +195,25 @@</span> locals {
+   #   &quot;host&quot;= &quot;%&quot;,
+   #   &quot;password&quot;= &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;eusou-prod_databases_dial_kmsg_conecta_prod_password&quot;]}&quot;
+   #}
+<span style="color:red;">-    ]</span>
+<span style="color:lime;">+</span>
+   sql_databases_shared-prod-mysql-57 = [
+     {
+       &quot;name&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;shared-prod-mysql-57_databases_dial-gip-prod_name&quot;]}&quot;
+<span style="color:red;">-    	}, {</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+<span style="color:lime;">+</span><span style="color:lime;">    {</span>
+       &quot;name&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;shared-prod-mysql-57_databases_dial-hsp-prod_name&quot;]}&quot;
+<span style="color:red;">-	}, {</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+<span style="color:lime;">+</span><span style="color:lime;">    {</span>
+       &quot;name&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;shared-prod-mysql-57_databases_dial-multi-prod_name&quot;]}&quot;
+<span style="color:red;">-        }, {</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+<span style="color:lime;">+</span><span style="color:lime;">    {</span>
+       &quot;name&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial-roche-prod_databases_dial_roche_prod_name&quot;]}&quot;
+<span style="color:red;">-        },{</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+<span style="color:lime;">+</span><span style="color:lime;">    {</span>
+       &quot;name&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial_unimed_prod_name&quot;]}&quot;
+<span style="color:red;">-        }  </span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+<span style="color:lime;">+</span><span style="color:lime;">  ]</span>
+<span style="color:lime;">+</span>
+   #, {
+   #    &quot;name&quot;= &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;eusou-prod_databases_dial_pn_prod_name&quot;]}&quot;
+   #}, {
+<span style="color:aqua;">@@ -201,34 +222,26 @@</span> locals {
+   #    &quot;name&quot;= &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;eusou-prod_databases_dial_kmsg_conecta_prod_name&quot;]}&quot;
+   #}
+ 
+<span style="color:red;">-    ]</span>
+<span style="color:red;">-</span>
+   sql_users_sl_prod = [
+     {
+<span style="color:red;">-        &quot;password&quot;= &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial_sl_prod_password&quot;]}&quot;,</span>
+<span style="color:red;">-        &quot;host&quot;= &quot;%&quot;, </span>
+<span style="color:red;">-        &quot;name&quot;= &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial_sl_prod_username&quot;]}&quot;,</span>
+<span style="color:red;">-      }</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;password&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial_sl_prod_password&quot;]}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;host&quot;     = &quot;%&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">      &quot;name&quot;     = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial_sl_prod_username&quot;]}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+   ]
+<span style="color:red;">-</span>
+   sql_databases_sl_prod = [
+     {
+       &quot;name&quot; = &quot;${data.vault_generic_secret.crticial_mass_secrets_db_9.data[&quot;dial_sl_prod_name&quot;]}&quot;
+<span style="color:red;">-      } </span>
+<span style="color:lime;">+</span><span style="color:lime;">    },</span>
+   ]
+<span style="color:red;">-</span>
+   sql_databases_mch-vc-prod = []
+   sql_users_mch-vc-prod     = []
+<span style="color:red;">-</span>
+   sql_databases_shared-prod-mysql = []
+   sql_users_shared-prod-mysql     = []
+<span style="color:red;">-</span>
+   sql_users_eusou-prod-pepsico     = []
+   sql_databases_eusou-prod-pepsico = []
+<span style="color:red;">-</span>
+   sql_databases_ead-em-prod = []
+   sql_users_ead-em-prod     = []
+<span style="color:red;">-</span>
+ }
+ 
+ module &quot;carrefour-prod&quot; {
+<span style="font-weight:bold;">diff --git a/criticalmass/gcp/prod/gke.tf b/criticalmass/gcp/prod/gke.tf</span>
+<span style="font-weight:bold;">index 5ca628f..8a39033 100644</span>
+<span style="font-weight:bold;">--- a/criticalmass/gcp/prod/gke.tf</span>
+<span style="font-weight:bold;">+++ b/criticalmass/gcp/prod/gke.tf</span>
+<span style="color:aqua;">@@ -12,26 +12,45 @@</span> module &quot;gke&quot; {
+   network              = &quot;${module.network.vpc_self_link}&quot;
+   subnetwork           = &quot;${module.network.subnetwork_self_link[0]}&quot;
+   region               = &quot;${var.region}-d&quot;
+<span style="color:red;">-        labels               = {&quot;env&quot; = &quot;${local.cluster_name}&quot;}</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span><span style="color:lime;">  labels = {</span>
+<span style="color:lime;">+</span><span style="color:lime;">    &quot;env&quot; = &quot;${local.cluster_name}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">  }</span>
+<span style="color:lime;">+</span>
+   tags = [&quot;env&quot;, &quot;qa&quot;]
+<span style="color:red;">-        metadata             = {&quot;EXPOSE&quot; = true}</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span><span style="color:lime;">  metadata = {</span>
+<span style="color:lime;">+</span><span style="color:lime;">    &quot;EXPOSE&quot; = true</span>
+<span style="color:lime;">+</span><span style="color:lime;">  }</span>
+<span style="color:lime;">+</span>
+   ip_allocation_policy = []
+<span style="color:red;">-        ipv4_cidr_block      = &quot;10.0.0.0/28&quot;</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span><span style="color:lime;">  //        ipv4_cidr_block      = &quot;10.0.0.0/28&quot;</span>
+   disk_size_gb_np = &quot;50&quot;
+   disk_size_gb    = &quot;50&quot;
+ }
+ 
+<span style="color:red;">-module &quot;node-pool&quot; { # Extra node_pool with scaling and auto-repair</span>
+<span style="color:red;">-        source               = &quot;../../../modules_gcp/node_pool/&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">module &quot;node-pool&quot; {</span>
+<span style="color:lime;">+</span><span style="color:lime;">  source           = &quot;../../../modules_gcp/node_pool/&quot; # Extra node_pool with scaling and auto-repair</span>
+   count            = 1
+   cluster_name     = &quot;${local.cluster_name}&quot;
+<span style="color:red;">-        node_count           = 1</span>
+<span style="color:lime;">+</span><span style="color:lime;">  node_count       = 3</span>
+   region           = &quot;${var.region}-d&quot;
+   disk_size_gb_np  = &quot;50&quot;
+   gke_primary_name = &quot;${module.gke.cluster_name}&quot;
+   max_node_count   = 10
+ }
+ 
+<span style="color:lime;">+</span><span style="color:lime;">module &quot;node-pool-carrefour&quot; {</span>
+<span style="color:lime;">+</span><span style="color:lime;">  source           = &quot;../../../modules_gcp/node_pool/&quot; # Extra node_pool with scaling and auto-repair</span>
+<span style="color:lime;">+</span><span style="color:lime;">  count            = 1</span>
+<span style="color:lime;">+</span><span style="color:lime;">  cluster_name     = &quot;${local.cluster_name}-carrefour&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">  node_count       = 4</span>
+<span style="color:lime;">+</span><span style="color:lime;">  region           = &quot;${var.region}-d&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">  disk_size_gb_np  = &quot;50&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">  gke_primary_name = &quot;${module.gke.cluster_name}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">  max_node_count   = 5</span>
+<span style="color:lime;">+</span><span style="color:lime;">}</span>
+ 
+ data &quot;google_container_registry_repository&quot; &quot;repo_dial-admin-endpoints&quot; {}
+ 
+<span style="font-weight:bold;">diff --git a/criticalmass/gcp/provider.tf b/criticalmass/gcp/provider.tf</span>
+<span style="font-weight:bold;">index 19acbb4..59d7f19 100644</span>
+<span style="font-weight:bold;">--- a/criticalmass/gcp/provider.tf</span>
+<span style="font-weight:bold;">+++ b/criticalmass/gcp/provider.tf</span>
+<span style="color:aqua;">@@ -1,5 +1,6 @@</span>
+ // Configure the Google Cloud provider
+ provider &quot;google&quot; {
+<span style="color:lime;">+</span><span style="color:lime;">  version     = &quot;~&gt; 1.20&quot;</span>
+   credentials = &quot;${data.template_file.account_gcp.rendered}&quot;
+   project     = &quot;dialog-western-union&quot;
+   region      = &quot;${var.region}&quot;
+<span style="font-weight:bold;">diff --git a/criticalmass/gcp/qa/gke.tf b/criticalmass/gcp/qa/gke.tf</span>
+<span style="font-weight:bold;">index ac8014f..6133489 100644</span>
+<span style="font-weight:bold;">--- a/criticalmass/gcp/qa/gke.tf</span>
+<span style="font-weight:bold;">+++ b/criticalmass/gcp/qa/gke.tf</span>
+<span style="color:aqua;">@@ -18,7 +18,7 @@</span> module &quot;gke&quot; {
+         metadata             = {&quot;EXPOSE&quot; = true}
+         ip_allocation_policy = []
+         disk_size_gb_np      = 50
+<span style="color:red;">-        ipv4_cidr_block      = &quot;10.0.0.0/28&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">//        ipv4_cidr_block      = &quot;10.0.0.0/28&quot;</span>
+ }
+ 
+ data &quot;google_container_registry_repository&quot; &quot;repo_dial-admin-endpoints&quot; {}
+<span style="font-weight:bold;">diff --git a/criticalmass/gcp/qa/local.tf b/criticalmass/gcp/qa/local.tf</span>
+<span style="font-weight:bold;">index 6d66404..9a0c6d5 100644</span>
+<span style="font-weight:bold;">--- a/criticalmass/gcp/qa/local.tf</span>
+<span style="font-weight:bold;">+++ b/criticalmass/gcp/qa/local.tf</span>
+<span style="color:aqua;">@@ -258,9 +258,9 @@</span> data &quot;template_file&quot; &quot;hsp-admin&quot; {
+                 vault_path_app     = &quot;hsp&quot;
+                 vault_app_role     = &quot;dialog-admin-qa&quot;
+                 elb_ip             = &quot;${module.hsp-adm.regional_ip_output}&quot;
+<span style="color:red;">-                ssl_cert_name      = &quot;admhsp,admhsp-final-url&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                ssl_cert_name      = &quot;admhsp-final-url&quot;</span>
+                 global_static_ip   = &quot;${module.hsp-adm.public_name_output}&quot;
+<span style="color:red;">-                app_host           = &quot;hsp-admin-gcp.dialog.qa&quot; # hsp.dialog.qa</span>
+<span style="color:lime;">+</span><span style="color:lime;">                app_host           = &quot;hsp.dialog.qa&quot; # hsp.dialog.qa</span>
+         }
+ 
+ }
+<span style="color:aqua;">@@ -375,9 +375,9 @@</span> data &quot;template_file&quot; &quot;carrefour-api&quot; {
+                 vault_path_app     = &quot;carrefour&quot;
+                 vault_app_role     = &quot;dialog-api-qa&quot;
+                 elb_ip             = &quot;${module.carrefour-api.regional_ip_output}&quot; # module api
+<span style="color:red;">-                ssl_cert_name      = &quot;apicarrefour,apicarrefour-qa-final-url&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                ssl_cert_name      = &quot;apicarrefour-qa-final-url&quot;</span>
+                 global_static_ip   = &quot;${module.carrefour-api.public_name_output}&quot; # module api
+<span style="color:red;">-                app_host           = &quot;carrefour-api-gcp.dialog.qa&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                app_host           = &quot;api-carrefour.dialog.qa&quot;</span>
+         }
+ }
+ 
+<span style="color:aqua;">@@ -825,9 +825,9 @@</span> data &quot;template_file&quot; &quot;pepsico&quot; {
+                 vault_path_app     = &quot;pepsico&quot;
+                 vault_app_role     = &quot;dialog-api-qa&quot;
+                 elb_ip             = &quot;${module.pepsico-api.regional_ip_output}&quot;
+<span style="color:red;">-                ssl_cert_name      = &quot;apepep,apepep-final&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                ssl_cert_name      = &quot;apepep-final&quot;</span>
+                 global_static_ip   = &quot;${module.pepsico-api.public_name_output}&quot;
+<span style="color:red;">-                app_host           = &quot;pep-api-gcp.dialog.qa&quot; # api-pepapp.dialog.qa</span>
+<span style="color:lime;">+</span><span style="color:lime;">                app_host           = &quot;api-pepapp.dialog.qa&quot; # api-pepapp.dialog.qa</span>
+ 
+         }
+ 
+<span style="color:aqua;">@@ -848,9 +848,9 @@</span> data &quot;template_file&quot; &quot;pepsico-admin&quot; {
+                 vault_path_app     = &quot;pepsico&quot;
+                 vault_app_role     = &quot;dialog-admin-qa&quot;
+                 elb_ip             = &quot;${module.pepsico-adm.regional_ip_output}&quot;
+<span style="color:red;">-                ssl_cert_name      = &quot;admpep, admpep-final&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                ssl_cert_name      = &quot;admpep-final&quot;</span>
+                 global_static_ip   = &quot;${module.pepsico-adm.public_name_output}&quot;
+<span style="color:red;">-                app_host           = &quot;pep-admin-gcp.dialog.qa&quot; # pepapp.dialog.qa</span>
+<span style="color:lime;">+</span><span style="color:lime;">                app_host           = &quot;pepapp.dialog.qa&quot; # pepapp.dialog.qa</span>
+         }
+ 
+ }
+<span style="color:aqua;">@@ -924,9 +924,9 @@</span> data &quot;template_file&quot; &quot;light-api&quot; {
+                 vault_path_app     = &quot;light&quot;
+                 vault_app_role     = &quot;dialog-api-qa&quot;
+                 elb_ip             = &quot;${module.light-api.regional_ip_output}&quot; # module api
+<span style="color:red;">-                ssl_cert_name      = &quot;apilight,apilight-final-url&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                ssl_cert_name      = &quot;apilight-final-url&quot;</span>
+                 global_static_ip   = &quot;${module.light-api.public_name_output}&quot; # module api
+<span style="color:red;">-                app_host           = &quot;light-api-gcp.dialog.qa&quot; # api-light.dialog.qa</span>
+<span style="color:lime;">+</span><span style="color:lime;">                app_host           = &quot;api-light.dialog.qa&quot; # api-light.dialog.qa</span>
+         }
+ }
+ 
+<span style="color:aqua;">@@ -945,9 +945,9 @@</span> data &quot;template_file&quot; &quot;light-admin&quot; {
+                 vault_path_app     = &quot;light&quot;
+                 vault_app_role     = &quot;dialog-admin-qa&quot;
+                 elb_ip             = &quot;${module.light-adm.regional_ip_output}&quot;
+<span style="color:red;">-                ssl_cert_name      = &quot;admlight,admlight-final-url&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                ssl_cert_name      = &quot;admlight-final-url&quot;</span>
+                 global_static_ip   = &quot;${module.light-adm.public_name_output}&quot;
+<span style="color:red;">-                app_host           = &quot;light-admin-gcp.dialog.qa&quot; # light.dialog.qa</span>
+<span style="color:lime;">+</span><span style="color:lime;">                app_host           = &quot;light.dialog.qa&quot; # light.dialog.qa</span>
+         }
+ 
+ }
+<span style="font-weight:bold;">diff --git a/modules_gcp/gke/main.tf b/modules_gcp/gke/main.tf</span>
+<span style="font-weight:bold;">index b1ba8eb..a056213 100644</span>
+<span style="font-weight:bold;">--- a/modules_gcp/gke/main.tf</span>
+<span style="font-weight:bold;">+++ b/modules_gcp/gke/main.tf</span>
+<span style="color:aqua;">@@ -66,7 +66,7 @@</span> resource &quot;google_container_cluster&quot; &quot;gke-primary&quot; {
+   enable_legacy_abac      = &quot;${var.enable_legacy_abac}&quot;
+   private_cluster         = &quot;${var.private}&quot;
+   ip_allocation_policy    = &quot;${var.ip_allocation_policy}&quot;
+<span style="color:red;">-  master_ipv4_cidr_block  = &quot;${var.ipv4_cidr_block}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">  #master_ipv4_cidr_block  = &quot;${var.ipv4_cidr_block}&quot;</span>
+   
+   maintenance_policy {
+     daily_maintenance_window {
+<span style="font-weight:bold;">diff --git a/modules_gcp/gke/variables.tf b/modules_gcp/gke/variables.tf</span>
+<span style="font-weight:bold;">index 5642bb0..bd73506 100644</span>
+<span style="font-weight:bold;">--- a/modules_gcp/gke/variables.tf</span>
+<span style="font-weight:bold;">+++ b/modules_gcp/gke/variables.tf</span>
+<span style="color:aqua;">@@ -1,9 +1,9 @@</span>
+ variable &quot;min_master_version&quot; {
+<span style="color:red;">-        default = &quot;1.11.2-gke.15&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">        default = &quot;1.11.2-gke.15&quot; #1.11.7-gke.4</span>
+ }
+ 
+ variable &quot;latest_node_version&quot; {
+<span style="color:red;">-        default=&quot;1.11.2-gke.15&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">        default=&quot;1.11.2-gke.15&quot; #1.11.7-gke.4</span>
+ }
+ 
+ variable &quot;count&quot; {
+<span style="color:aqua;">@@ -146,4 +146,4 @@</span> variable &quot;metadata&quot; {
+         type=&quot;map&quot;
+ }
+ variable &quot;region&quot; {}
+<span style="color:red;">-variable &quot;ipv4_cidr_block&quot; {}</span>
+<span style="color:lime;">+</span><span style="color:lime;">#variable &quot;ipv4_cidr_block&quot; {}</span>
+</pre>
+</body>
+</html>
