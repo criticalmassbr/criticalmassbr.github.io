@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- This file was created with the aha Ansi HTML Adapter. https://github.com/theZiz/aha -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xml+xhtml; charset=UTF-8"/>
+<title>stdin</title>
+</head>
+<body style="color:white; background-color:black">
+<pre>
+<span style="font-weight:bold;">diff --git a/criticalmass/gcp/prod/gke.tf b/criticalmass/gcp/prod/gke.tf</span>
+<span style="font-weight:bold;">index b3a84c0..e9bd064 100644</span>
+<span style="font-weight:bold;">--- a/criticalmass/gcp/prod/gke.tf</span>
+<span style="font-weight:bold;">+++ b/criticalmass/gcp/prod/gke.tf</span>
+<span style="color:aqua;">@@ -25,7 +25,7 @@</span> module &quot;gke&quot; {
+ 
+   ip_allocation_policy = []
+ 
+<span style="color:red;">-  //        ipv4_cidr_block      = &quot;10.0.0.0/28&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">  ipv4_cidr_block = &quot;10.0.0.0/28&quot;</span>
+   disk_size_gb_np = &quot;50&quot;
+   disk_size_gb    = &quot;50&quot;
+ }
+<span style="color:aqua;">@@ -34,7 +34,7 @@</span> module &quot;node-pool&quot; {
+   source           = &quot;../../../modules_gcp/node_pool/&quot; # Extra node_pool with scaling and auto-repair
+   count            = 1
+   cluster_name     = &quot;${local.cluster_name}&quot;
+<span style="color:red;">-  node_count       = 3</span>
+<span style="color:lime;">+</span><span style="color:lime;">  node_count       = 4</span>
+   region           = &quot;${var.region}-d&quot;
+   disk_size_gb_np  = &quot;50&quot;
+   gke_primary_name = &quot;${module.gke.cluster_name}&quot;
+<span style="color:aqua;">@@ -45,7 +45,7 @@</span> module &quot;node-pool-carrefour&quot; {
+   source           = &quot;../../../modules_gcp/node_pool/&quot; # Extra node_pool with scaling and auto-repair
+   count            = 1
+   cluster_name     = &quot;${local.cluster_name}-carrefour&quot;
+<span style="color:red;">-  node_count       = 11</span>
+<span style="color:lime;">+</span><span style="color:lime;">  node_count       = 8</span>
+   region           = &quot;${var.region}-d&quot;
+   disk_size_gb_np  = &quot;50&quot;
+   gke_primary_name = &quot;${module.gke.cluster_name}&quot;
+<span style="font-weight:bold;">diff --git a/criticalmass/gcp/qa/gke.tf b/criticalmass/gcp/qa/gke.tf</span>
+<span style="font-weight:bold;">index 6133489..ac8014f 100644</span>
+<span style="font-weight:bold;">--- a/criticalmass/gcp/qa/gke.tf</span>
+<span style="font-weight:bold;">+++ b/criticalmass/gcp/qa/gke.tf</span>
+<span style="color:aqua;">@@ -18,7 +18,7 @@</span> module &quot;gke&quot; {
+         metadata             = {&quot;EXPOSE&quot; = true}
+         ip_allocation_policy = []
+         disk_size_gb_np      = 50
+<span style="color:red;">-//        ipv4_cidr_block      = &quot;10.0.0.0/28&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">        ipv4_cidr_block      = &quot;10.0.0.0/28&quot;</span>
+ }
+ 
+ data &quot;google_container_registry_repository&quot; &quot;repo_dial-admin-endpoints&quot; {}
+<span style="font-weight:bold;">diff --git a/criticalmass/gcp/qa/local.tf b/criticalmass/gcp/qa/local.tf</span>
+<span style="font-weight:bold;">index 9a0c6d5..d1179d3 100644</span>
+<span style="font-weight:bold;">--- a/criticalmass/gcp/qa/local.tf</span>
+<span style="font-weight:bold;">+++ b/criticalmass/gcp/qa/local.tf</span>
+<span style="color:aqua;">@@ -549,7 +549,7 @@</span> data &quot;template_file&quot; &quot;multi-api&quot; {
+                 vault_path_app     = &quot;multi&quot;
+                 vault_app_role     = &quot;dialog-api-qa&quot;
+                 elb_ip             = &quot;${module.multi-api.regional_ip_output}&quot; # module api
+<span style="color:red;">-                ssl_cert_name      = &quot;api-multi-multi,api-multi-connectcom,api-multi-demo,api-multi-anadef,api-multi-unilever,api-multi-renova,api-multi-gl,api-multi-conecta,api-multi-livelo,api-multi-intercity,api-multi-connectcom&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                ssl_cert_name      = &quot;api-multi-multi,api-multi-connectcom,api-multi-demo,api-multi-anadef,api-multi-unilever,api-multi-renova,api-multi-gl,api-multi-conecta,api-multi-livelo,api-multi-intercity&quot;</span>
+                 global_static_ip   = &quot;${module.multi-api.public_name_output}&quot; # module api
+                 app_host           = &quot;*.dialog.qa&quot;
+         }
+<span style="color:aqua;">@@ -1262,7 +1262,7 @@</span> data &quot;template_file&quot; &quot;kmsg-conecta&quot; {
+                 elb_ip             = &quot;${module.kmsg-conecta.regional_ip_output}&quot; # module api
+                 ssl_cert_name      = &quot;conecta-qa,conteudo-qa&quot;
+                 global_static_ip   = &quot;${module.kmsg-conecta.public_name_output}&quot; # module api
+<span style="color:red;">-                app_host           = &quot;conecta-keymsg.dialog.qa,dial-kmsg-conteudo-qa&quot; </span>
+<span style="color:lime;">+</span><span style="color:lime;">                app_host           = &quot;conecta.keymsg.dialog.qa&quot;</span><span style="background-color:red;"> </span>
+         }
+ }
+ 
+<span style="color:aqua;">@@ -1271,3 +1271,129 @@</span> module &quot;dialog-kmsg-conecta-pod&quot; {
+    file_rendered  = &quot;${data.template_file.kmsg-conecta.rendered}&quot;
+    name_file      = &quot;dial-kmsg-conecta-qa&quot;
+ }
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span><span style="color:lime;">##################################### SBT #######################################################</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span><span style="color:lime;">resource &quot;null_resource&quot; &quot;creates-sbt-ssl-final-url&quot; {</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span><span style="color:lime;">  provisioner &quot;local-exec&quot; {</span>
+<span style="color:lime;">+</span><span style="color:lime;">    command = &quot;gcloud beta compute ssl-certificates create admsbt-final-url-qa --domains sbt.dialog.qa || echo 'ok'&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">    on_failure = &quot;fail&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">  }</span>
+<span style="color:lime;">+</span><span style="color:lime;">  provisioner &quot;local-exec&quot; {</span>
+<span style="color:lime;">+</span><span style="color:lime;">    command  = &quot;gcloud beta compute ssl-certificates create apisbt-final-url-qa --domains api-sbt.dialog.qa || echo 'ok'&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">    on_failure = &quot;fail&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">  }</span>
+<span style="color:lime;">+</span><span style="color:lime;">}</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span><span style="color:lime;">module &quot;sbt-api&quot; {</span>
+<span style="color:lime;">+</span><span style="color:lime;">    source        = &quot;../../../modules_gcp/pods_elb_ips&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">    global_name   = &quot;sbt-api-global-ip&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">    regional_name = &quot;sbt-api-regional-ip&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">}</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span><span style="color:lime;">module &quot;sbt-adm&quot; {</span>
+<span style="color:lime;">+</span><span style="color:lime;">        source = &quot;../../../modules_gcp/pods_elb_ips&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">        global_name   = &quot;sbt-adm-global-ip&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">        regional_name = &quot;sbt-adm-regional-ip&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">}</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span><span style="color:lime;">data &quot;template_file&quot; &quot;sbt-api&quot; {</span>
+<span style="color:lime;">+</span><span style="color:lime;">        template = &quot;${file(&quot;${path.module}/../k8s_templates/provision/api_deployment.tpl&quot;)}&quot;</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span><span style="color:lime;">        vars {</span>
+<span style="color:lime;">+</span><span style="color:lime;">                host_port          = 8801</span>
+<span style="color:lime;">+</span><span style="color:lime;">                container_port     = 80</span>
+<span style="color:lime;">+</span><span style="color:lime;">                env                = &quot;qa&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                app                = &quot;dial-api-sbt-qa&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                vault_addr         = &quot;192.168.64.8&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                registry_endpoint  = &quot;gcr.io/${var.project_id}/dialog-api:latest&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                token_app_role     = &quot;99ccc4bc-7ce6-387c-cee4-c041ccf3f668&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                vault_path_secrets = &quot;dialog-api-qa&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                vault_path_app     = &quot;sbt&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                vault_app_role     = &quot;dialog-api-qa&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                elb_ip             = &quot;${module.sbt-api.regional_ip_output}&quot; # module api</span>
+<span style="color:lime;">+</span><span style="color:lime;">                ssl_cert_name      = &quot;apisbt-final-url-qa&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                global_static_ip   = &quot;${module.sbt-api.public_name_output}&quot; # module api</span>
+<span style="color:lime;">+</span><span style="color:lime;">                app_host           = &quot;api-sbt.dialog.qa&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">        }</span>
+<span style="color:lime;">+</span><span style="color:lime;">}</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span><span style="color:lime;">data &quot;template_file&quot; &quot;sbt-admin&quot; {</span>
+<span style="color:lime;">+</span><span style="color:lime;">        template = &quot;${file(&quot;${path.module}/../k8s_templates/provision/admin_deployment.tpl&quot;)}&quot;</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span><span style="color:lime;">        vars {</span>
+<span style="color:lime;">+</span><span style="color:lime;">                host_port          = 8801</span>
+<span style="color:lime;">+</span><span style="color:lime;">                container_port     = 80</span>
+<span style="color:lime;">+</span><span style="color:lime;">                env                = &quot;qa&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                app                = &quot;dial-adm-sbt-qa&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                vault_addr         = &quot;192.168.64.8&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                registry_endpoint  = &quot;gcr.io/${var.project_id}/dialog-admin:latest&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                token_app_role     = &quot;f4b73058-e747-9515-6695-021660770e1b&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                vault_path_secrets = &quot;dialog-admin-qa&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                vault_path_app     = &quot;sbt&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                vault_app_role     = &quot;dialog-admin-qa&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                elb_ip             = &quot;${module.sbt-adm.regional_ip_output}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                ssl_cert_name      = &quot;admsbt-final-url-qa&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                global_static_ip   = &quot;${module.sbt-adm.public_name_output}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                app_host           = &quot;sbt.dialog.qa&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">        }</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span><span style="color:lime;">}</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span><span style="color:lime;">module &quot;sbt-admin-pod&quot; {</span>
+<span style="color:lime;">+</span><span style="color:lime;">   source         = &quot;../../../modules_gcp/pods/&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">   file_rendered  = &quot;${data.template_file.sbt-admin.rendered}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">   name_file      = &quot;dial-adm-sbt-qa&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">}</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span><span style="color:lime;">module &quot;sbt-api-pod&quot; {</span>
+<span style="color:lime;">+</span><span style="color:lime;">   source         = &quot;../../../modules_gcp/pods/&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">   file_rendered  = &quot;${data.template_file.sbt-api.rendered}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">   name_file      = &quot;dial-api-sbt-qa&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">}</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span><span style="color:lime;">##################################### GIP-PWA #######################################################</span>
+<span style="color:lime;">+</span><span style="color:lime;">resource &quot;null_resource&quot; &quot;creates-gip-pwa-ssl&quot; {</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span><span style="color:lime;">  provisioner &quot;local-exec&quot; {</span>
+<span style="color:lime;">+</span><span style="color:lime;">    command = &quot;gcloud beta compute ssl-certificates create gip-pwa-cert --domains gip.pwa.dialog.qa&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">    on_failure = &quot;fail&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">  }</span>
+<span style="color:lime;">+</span><span style="color:lime;">}</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span><span style="color:lime;">module &quot;pwa-gip&quot; {</span>
+<span style="color:lime;">+</span><span style="color:lime;">    source        = &quot;../../../modules_gcp/pods_elb_ips&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">    global_name   = &quot;gip-pwa-global-ip&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">    regional_name = &quot;gip-pwa-regional-ip&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">}</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span><span style="color:lime;">data &quot;template_file&quot; &quot;gip-pwa&quot; {</span>
+<span style="color:lime;">+</span><span style="color:lime;">        template = &quot;${file(&quot;${path.module}/../k8s_templates/provision/pwa.tpl&quot;)}&quot;</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span><span style="color:lime;">        vars {</span>
+<span style="color:lime;">+</span><span style="color:lime;">                host_port          = 8801</span>
+<span style="color:lime;">+</span><span style="color:lime;">                container_port     = 80</span>
+<span style="color:lime;">+</span><span style="color:lime;">                env                = &quot;qa&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                app                = &quot;dial-pwa-gip-qa&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                registry_endpoint  = &quot;gcr.io/${var.project_id}/dialog-pwa:latest&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                elb_ip             = &quot;${module.pwa-gip.regional_ip_output}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                ssl_cert_name      = &quot;gip-pwa-cert&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                global_static_ip   = &quot;${module.pwa-gip.public_name_output}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">                app_host           = &quot;gip.pwa.dialog.qa&quot;</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span><span style="color:lime;">        }</span>
+<span style="color:lime;">+</span><span style="color:lime;">}</span>
+<span style="color:lime;">+</span>
+<span style="color:lime;">+</span><span style="color:lime;">module &quot;pwa-gip-pod&quot; {</span>
+<span style="color:lime;">+</span><span style="color:lime;">   source         = &quot;../../../modules_gcp/pods/&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">   file_rendered  = &quot;${data.template_file.gip-pwa.rendered}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">   name_file      = &quot;dial-pwa-gip-qa&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">}</span>
+<span style="background-color:red;">+</span>
+<span style="background-color:red;">+</span>
+<span style="background-color:red;">+</span>
+<span style="font-weight:bold;">diff --git a/modules_gcp/gke/main.tf b/modules_gcp/gke/main.tf</span>
+<span style="font-weight:bold;">index a056213..b1ba8eb 100644</span>
+<span style="font-weight:bold;">--- a/modules_gcp/gke/main.tf</span>
+<span style="font-weight:bold;">+++ b/modules_gcp/gke/main.tf</span>
+<span style="color:aqua;">@@ -66,7 +66,7 @@</span> resource &quot;google_container_cluster&quot; &quot;gke-primary&quot; {
+   enable_legacy_abac      = &quot;${var.enable_legacy_abac}&quot;
+   private_cluster         = &quot;${var.private}&quot;
+   ip_allocation_policy    = &quot;${var.ip_allocation_policy}&quot;
+<span style="color:red;">-  #master_ipv4_cidr_block  = &quot;${var.ipv4_cidr_block}&quot;</span>
+<span style="color:lime;">+</span><span style="color:lime;">  master_ipv4_cidr_block  = &quot;${var.ipv4_cidr_block}&quot;</span>
+   
+   maintenance_policy {
+     daily_maintenance_window {
+<span style="font-weight:bold;">diff --git a/modules_gcp/gke/variables.tf b/modules_gcp/gke/variables.tf</span>
+<span style="font-weight:bold;">index bd73506..e11fa53 100644</span>
+<span style="font-weight:bold;">--- a/modules_gcp/gke/variables.tf</span>
+<span style="font-weight:bold;">+++ b/modules_gcp/gke/variables.tf</span>
+<span style="color:aqua;">@@ -1,9 +1,9 @@</span>
+ variable &quot;min_master_version&quot; {
+<span style="color:red;">-        default = &quot;1.11.2-gke.15&quot; #1.11.7-gke.4</span>
+<span style="color:lime;">+</span><span style="color:lime;">        default = &quot;1.11.2-gke.15&quot; #1.12.5-gke.5</span>
+ }
+ 
+ variable &quot;latest_node_version&quot; {
+<span style="color:red;">-        default=&quot;1.11.2-gke.15&quot; #1.11.7-gke.4</span>
+<span style="color:lime;">+</span><span style="color:lime;">        default=&quot;1.11.2-gke.15&quot; #1.12.5-gke.5</span>
+ }
+ 
+ variable &quot;count&quot; {
+<span style="color:aqua;">@@ -146,4 +146,4 @@</span> variable &quot;metadata&quot; {
+         type=&quot;map&quot;
+ }
+ variable &quot;region&quot; {}
+<span style="color:red;">-#variable &quot;ipv4_cidr_block&quot; {}</span>
+<span style="color:lime;">+</span><span style="color:lime;">variable &quot;ipv4_cidr_block&quot; {}</span>
+</pre>
+</body>
+</html>
